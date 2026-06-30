@@ -1,45 +1,28 @@
-# [Project name]
+# Sandesh Portfolio — Workspace Notes
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+This pnpm monorepo contains a public React portfolio and optional API/database scaffolding. The portfolio is the primary deployable artifact.
 
-## Run & Operate
+## Primary Commands
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm run dev:portfolio` — start the portfolio locally
+- `pnpm run typecheck:portfolio` — validate portfolio TypeScript
+- `pnpm run build:portfolio` — build the Vercel production artifact
+- `pnpm run build` — validate and build every workspace package
 
-## Stack
+## Portfolio Sources
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- application: `artifacts/portfolio/src`
+- static assets: `artifacts/portfolio/public`
+- Vite configuration: `artifacts/portfolio/vite.config.ts`
+- Vercel deployment: `vercel.json`
 
-## Where things live
+## Deployment Notes
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+Vercel deploys from the repository root using the checked-in configuration. The portfolio does not require `PORT` or `BASE_PATH`; both remain optional for alternate hosts.
 
-## Architecture decisions
+## Content Guardrails
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
-
-## Product
-
-_Describe the high-level user-facing capabilities of this app once they exist._
-
-## User preferences
-
-_Populate as you build — explicit user instructions worth remembering across sessions._
-
-## Gotchas
-
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Keep accounting and audit claims evidence-based.
+- Do not imply CPA licensure; use “CPA-track.”
+- Prefer curated project case studies over a live unfiltered GitHub feed.
+- Do not publish personal phone numbers or exact home addresses.
