@@ -6,16 +6,19 @@ export function ParticleCanvas() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const canvasElement: HTMLCanvasElement = canvas;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvasElement.getContext('2d');
     if (!ctx) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let particles: Particle[] = [];
     let animationFrameId: number;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvasElement.width = window.innerWidth;
+      canvasElement.height = window.innerHeight;
     };
     
     window.addEventListener('resize', resize);
@@ -29,8 +32,8 @@ export function ParticleCanvas() {
       radius: number;
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * canvasElement.width;
+        this.y = Math.random() * canvasElement.height;
         this.vx = (Math.random() - 0.5) * 0.5;
         this.vy = (Math.random() - 0.5) * 0.5;
         this.radius = 1.5;
@@ -40,8 +43,8 @@ export function ParticleCanvas() {
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        if (this.x < 0 || this.x > canvasElement.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvasElement.height) this.vy *= -1;
       }
 
       draw() {
@@ -61,7 +64,7 @@ export function ParticleCanvas() {
     };
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
@@ -97,6 +100,7 @@ export function ParticleCanvas() {
   return (
     <canvas 
       ref={canvasRef} 
+      aria-hidden="true"
       className="absolute inset-0 pointer-events-none w-full h-full"
     />
   );

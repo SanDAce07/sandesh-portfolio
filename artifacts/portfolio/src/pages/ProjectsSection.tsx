@@ -1,185 +1,117 @@
-import { useState, useEffect, useRef } from 'react';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { Input } from '@/components/ui/input';
-import { Search, Star, ExternalLink, Code } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ArrowUpRight, CheckCircle2, Github } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-interface Repo {
-  id: number;
-  name: string;
+interface Project {
+  title: string;
+  category: string;
   description: string;
-  html_url: string;
-  stargazers_count: number;
-  language: string | null;
-  updated_at: string;
+  evidence: string;
+  tags: string[];
+  href: string;
 }
 
-const languageColors: Record<string, string> = {
-  "JavaScript": "#f1e05a",
-  "TypeScript": "#3178c6", 
-  "Python": "#3572A5",
-  "HTML": "#e34c26",
-  "CSS": "#563d7c",
-  "Java": "#b07219",
-  "C++": "#f34b7d",
-  "C": "#555555",
-  "Ruby": "#701516",
-  "Go": "#00ADD8",
-  "Rust": "#dea584",
-  "Shell": "#89e051",
-  "Vue": "#41b883",
-  "Swift": "#F05138",
-  "Kotlin": "#A97BFF",
-  "null": "#8b949e"
-};
+const projects: Project[] = [
+  {
+    title: "AR Aging Dashboard",
+    category: "Accounting analytics",
+    description: "A formula-driven Excel model that classifies receivables by aging bucket, highlights concentration risk, and turns invoice detail into management-ready follow-up.",
+    evidence: "Customer-level aging, exception controls, and a documented refresh workflow",
+    tags: ["Excel", "Accounts Receivable", "Reconciliation"],
+    href: "https://github.com/SanDAce07/accounting-projects-portfolio/tree/main/accounts-receivable/ar-aging-dashboard",
+  },
+  {
+    title: "Cash Application Tracker",
+    category: "Accounting operations",
+    description: "An end-to-end receipt application workflow covering exact matches, partial payments, short pays, overpayments, missing remittance, and unidentified cash.",
+    evidence: "$259,480 receipt cycle with $233,970 applied and seven passing controls",
+    tags: ["Excel", "Cash Application", "Controls"],
+    href: "https://github.com/SanDAce07/accounting-projects-portfolio/tree/main/accounts-receivable/cash-application-tracker",
+  },
+  {
+    title: "AR Confirmation Simulation",
+    category: "Financial statement audit",
+    description: "A positive-confirmation workpaper package with sample selection, response control, alternative procedures, exception evaluation, and professional customer letters.",
+    evidence: "$206,220 sample covering 65.7% of positive AR exposure",
+    tags: ["Audit", "Workpapers", "Substantive Testing"],
+    href: "https://github.com/SanDAce07/accounting-projects-portfolio/tree/main/audit-projects/ar-confirmation-simulation",
+  },
+  {
+    title: "GRC & IT Audit Toolkit",
+    category: "Controls and systems",
+    description: "A growing collection of practical audit utilities for access reviews, change-log sampling, risk scoring, and accounting-system control analysis.",
+    evidence: "Reusable analyzers with documented control objectives and review outputs",
+    tags: ["Python", "IT Audit", "GRC"],
+    href: "https://github.com/SanDAce07/grc-audit-toolkit",
+  },
+];
 
-function ProjectCard({ repo }: { repo: Repo }) {
-  const cardRef = useRef<HTMLAnchorElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!cardRef.current) return;
-    const card = cardRef.current;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -12;
-    const rotateY = ((x - centerX) / centerX) * 12;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-  };
-
-  const daysAgo = Math.floor((new Date().getTime() - new Date(repo.updated_at).getTime()) / (1000 * 3600 * 24));
-  const langColor = repo.language ? languageColors[repo.language] || languageColors["null"] : languageColors["null"];
-
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <a 
-      href={repo.html_url} 
-      target="_blank" 
-      rel="noreferrer"
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="glassmorphism p-6 rounded-2xl flex flex-col h-full border-white/10 hover:border-indigo-500/50 transition-colors group block relative z-10"
-      style={{ transition: 'transform 0.1s ease, border-color 0.3s ease' }}
-    >
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors line-clamp-1 flex-1 pr-4">
-          {repo.name}
-        </h3>
-        <div className="flex items-center gap-2 shrink-0 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-          <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: langColor }}></span>
-          <span className="text-xs font-medium text-slate-300">{repo.language || 'Code'}</span>
-        </div>
+    <article className="glassmorphism group flex h-full flex-col rounded-3xl border-white/10 p-7 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-indigo-400/50 hover:shadow-[0_24px_80px_rgba(79,70,229,0.16)]">
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-300">{project.category}</p>
+        <ArrowUpRight className="h-5 w-5 shrink-0 text-slate-500 transition-colors group-hover:text-indigo-300" aria-hidden="true" />
       </div>
-      
-      <p className="text-slate-400 text-sm flex-grow line-clamp-2 mb-6 leading-relaxed">
-        {repo.description || "No description provided."}
-      </p>
-      
-      <div className="flex items-center justify-between text-slate-400 text-sm mt-auto pt-4 border-t border-white/5">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5">
-            <Star className="w-4 h-4" /> {repo.stargazers_count}
+
+      <h3 className="mb-4 text-2xl font-bold tracking-tight text-white">{project.title}</h3>
+      <p className="mb-6 flex-1 leading-relaxed text-slate-400">{project.description}</p>
+
+      <div className="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-300/10 bg-emerald-300/5 p-4 text-sm leading-relaxed text-emerald-100">
+        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" aria-hidden="true" />
+        <span>{project.evidence}</span>
+      </div>
+
+      <div className="mb-6 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-300">
+            {tag}
           </span>
-          <span className="text-slate-500 hidden sm:inline">Updated {daysAgo} days ago</span>
-        </div>
-        <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-indigo-400" />
+        ))}
       </div>
-    </a>
+
+      <a
+        href={project.href}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center font-semibold text-white underline-offset-4 hover:text-indigo-300 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+        aria-label={`View ${project.title} on GitHub`}
+      >
+        View project
+        <ArrowUpRight className="ml-2 h-4 w-4" aria-hidden="true" />
+      </a>
+    </article>
   );
 }
 
 export function ProjectsSection() {
   const sectionRef = useScrollAnimation();
-  const [repos, setRepos] = useState<Repo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    fetch('https://api.github.com/users/SanDAce07/repos?sort=updated&per_page=100')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          // Filter out forks if desired, or keep all
-          setRepos(data.filter(r => !r.fork));
-        }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
-
-  const filteredRepos = repos.filter(repo => 
-    repo.name.toLowerCase().includes(search.toLowerCase()) || 
-    (repo.language && repo.language.toLowerCase().includes(search.toLowerCase()))
-  );
 
   return (
-    <section id="projects" className="py-32 relative z-20">
+    <section id="projects" className="relative z-20 py-28" aria-labelledby="projects-heading">
       <div className="container mx-auto px-6" ref={sectionRef as React.RefObject<HTMLDivElement>}>
-        
-        <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-6 mb-16">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">Open Source</h2>
-            <p className="text-slate-400 text-lg">My recent work, experiments, and contributions.</p>
+        <div className="mb-14 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Selected portfolio</p>
+            <h2 id="projects-heading" className="mb-5 text-4xl font-bold tracking-tight text-white md:text-5xl">Work built to be reviewed and used.</h2>
+            <p className="text-lg leading-relaxed text-slate-400">
+              Each project combines accounting judgment, traceable source data, clear controls, and practical documentation—not just a finished screenshot.
+            </p>
           </div>
-          
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
-            <Input 
-              type="text" 
-              placeholder="Search projects..." 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 glassmorphism border-white/10 text-white placeholder:text-slate-500 rounded-xl h-12 focus-visible:ring-indigo-500"
-            />
-          </div>
+
+          <a
+            href="https://github.com/SanDAce07?tab=repositories"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-12 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 font-semibold text-white transition-colors hover:border-indigo-400/50 hover:bg-indigo-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+          >
+            <Github className="mr-2 h-5 w-5" aria-hidden="true" />
+            All GitHub repositories
+          </a>
         </div>
 
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="glassmorphism p-6 rounded-2xl border-white/5 h-48 flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <Skeleton className="h-6 w-32 bg-white/10 rounded-md" />
-                    <Skeleton className="h-6 w-16 bg-white/10 rounded-full" />
-                  </div>
-                  <Skeleton className="h-4 w-full bg-white/5 rounded mb-2" />
-                  <Skeleton className="h-4 w-2/3 bg-white/5 rounded" />
-                </div>
-                <div className="pt-4 mt-auto">
-                  <Skeleton className="h-4 w-24 bg-white/5 rounded" />
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRepos.length > 0 ? (
-              filteredRepos.map(repo => (
-                <ProjectCard key={repo.id} repo={repo} />
-              ))
-            ) : (
-              <div className="col-span-full py-20 text-center glassmorphism rounded-2xl border-white/5">
-                <Code className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-2">No projects found</h3>
-                <p className="text-slate-400">Try adjusting your search query.</p>
-              </div>
-            )}
-          </div>
-        )}
+        <div className="grid gap-6 md:grid-cols-2">
+          {projects.map((project) => <ProjectCard key={project.title} project={project} />)}
+        </div>
       </div>
     </section>
   );

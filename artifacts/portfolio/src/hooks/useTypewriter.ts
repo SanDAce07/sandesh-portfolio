@@ -6,6 +6,12 @@ export function useTypewriter(phrases: string[], typeDelay = 80, eraseDelay = 40
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
+    if (phrases.length === 0) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setText(phrases[0]);
+      return;
+    }
+
     let timeout: ReturnType<typeof setTimeout>;
 
     const currentPhrase = phrases[phraseIndex];

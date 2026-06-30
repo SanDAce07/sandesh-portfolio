@@ -4,6 +4,10 @@ export function useScrollAnimation() {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

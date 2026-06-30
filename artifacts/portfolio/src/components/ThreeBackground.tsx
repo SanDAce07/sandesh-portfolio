@@ -6,6 +6,7 @@ export function ThreeBackground() {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
@@ -27,6 +28,7 @@ export function ThreeBackground() {
   return (
     <div
       ref={containerRef}
+      aria-hidden="true"
       className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-end pr-0 md:pr-16"
       style={{ zIndex: 1 }}
     >
@@ -144,6 +146,11 @@ export function ThreeBackground() {
         .geo-shape {
           --mouse-x: 0deg;
           --mouse-y: 0deg;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .geo-shape, .geo-shape * {
+            animation: none !important;
+          }
         }
       `}</style>
     </div>

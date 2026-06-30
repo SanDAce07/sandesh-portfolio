@@ -1,86 +1,67 @@
-import { Mail, Phone, MapPin, Check } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, Mail, MapPin } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+
+const emailHref = "mailto:lamatamangs@warhawks.ulm.edu?subject=Portfolio%20inquiry";
 
 export function ContactSection() {
   const sectionRef = useScrollAnimation();
-  const cardsRef = useScrollAnimation();
-  const { toast } = useToast();
-
-  const handleCopy = (text: string, type: string) => {
-    navigator.clipboard.writeText(text);
-    toast({
-      title: "Copied to clipboard",
-      description: `The ${type} has been copied to your clipboard.`,
-    });
-  };
 
   return (
-    <section id="contact" className="py-32 relative">
-      <div className="absolute inset-0 animate-gradient-bg opacity-30 pointer-events-none" style={{ backgroundImage: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(168,85,247,0.1) 50%, rgba(99,102,241,0.15) 100%)' }}></div>
-      
-      <div className="container mx-auto px-6 relative z-10" ref={sectionRef as React.RefObject<HTMLDivElement>}>
-        <div className="max-w-2xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#6366f1] to-[#a855f7] mb-6 tracking-tight">
-            Let's Connect
+    <section id="contact" className="relative overflow-hidden py-28" aria-labelledby="contact-heading">
+      <div className="absolute inset-0 animate-gradient-bg opacity-30 pointer-events-none" style={{ backgroundImage: "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(168,85,247,0.1) 50%, rgba(99,102,241,0.15) 100%)" }} />
+
+      <div className="container relative z-10 mx-auto px-6" ref={sectionRef as React.RefObject<HTMLDivElement>}>
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-indigo-300">Let&apos;s connect</p>
+          <h2 id="contact-heading" className="mb-6 bg-gradient-to-r from-indigo-300 to-violet-300 bg-clip-text text-4xl font-black tracking-tight text-transparent md:text-6xl">
+            Looking for someone who understands both the numbers and the system behind them?
           </h2>
-          <p className="text-lg text-slate-300 leading-relaxed">
-            I'm always open to discussing new opportunities, projects, or just having a conversation.
+          <p className="text-lg leading-relaxed text-slate-300">
+            I&apos;m open to internships, entry-level opportunities, and practical accounting or data projects where careful work and clear communication matter.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto" ref={cardsRef as React.RefObject<HTMLDivElement>}>
-          
-          <button 
-            onClick={() => handleCopy("lamatamangs@warhawks.ulm.edu", "email address")}
-            className="group glassmorphism p-8 rounded-3xl border border-white/10 hover:border-[#6366f1]/50 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(99,102,241,0.3)] relative overflow-hidden"
-          >
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center mb-6">
-              <Mail className="w-6 h-6 text-white" />
+        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+          <a href={emailHref} className="glassmorphism group rounded-3xl border-white/10 p-8 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-indigo-400/50">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500">
+              <Mail className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Email</h3>
-            <p className="text-slate-400 text-sm truncate group-hover:text-indigo-300 transition-colors">lamatamangs@warhawks...</p>
-            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          </button>
-
-          <button 
-            onClick={() => handleCopy("(318) 690-6106", "phone number")}
-            className="group glassmorphism p-8 rounded-3xl border border-white/10 hover:border-[#6366f1]/50 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(99,102,241,0.3)] relative overflow-hidden"
-          >
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center mb-6">
-              <Phone className="w-6 h-6 text-white" />
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <h3 className="text-lg font-bold text-white">Email</h3>
+              <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-indigo-300" aria-hidden="true" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Phone</h3>
-            <p className="text-slate-400 text-sm truncate group-hover:text-indigo-300 transition-colors">(318) 690-6106</p>
-            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          </button>
-
-          <div 
-            className="group glassmorphism p-8 rounded-3xl border border-white/10 hover:border-[#6366f1]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(99,102,241,0.3)] relative overflow-hidden"
-          >
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center mb-6">
-              <MapPin className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Location</h3>
-            <p className="text-slate-400 text-sm truncate group-hover:text-indigo-300 transition-colors">Monroe, LA 71203</p>
-          </div>
-
-          <a 
-            href="https://github.com/SanDAce07"
-            target="_blank"
-            rel="noreferrer"
-            className="group glassmorphism p-8 rounded-3xl border border-white/10 hover:border-[#6366f1]/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(99,102,241,0.3)] relative overflow-hidden block"
-          >
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center mb-6">
-              <SiGithub className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">GitHub</h3>
-            <p className="text-slate-400 text-sm truncate group-hover:text-indigo-300 transition-colors">github.com/SanDAce07</p>
-            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <p className="break-all text-sm text-slate-400 group-hover:text-indigo-200">lamatamangs@warhawks.ulm.edu</p>
           </a>
 
+          <a href="https://github.com/SanDAce07" target="_blank" rel="noreferrer" className="glassmorphism group rounded-3xl border-white/10 p-8 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-indigo-400/50">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500">
+              <SiGithub className="h-6 w-6 text-white" aria-hidden="true" />
+            </div>
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <h3 className="text-lg font-bold text-white">GitHub</h3>
+              <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-indigo-300" aria-hidden="true" />
+            </div>
+            <p className="text-sm text-slate-400 group-hover:text-indigo-200">github.com/SanDAce07</p>
+          </a>
+
+          <div className="glassmorphism rounded-3xl border-white/10 p-8">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500">
+              <BriefcaseBusiness className="h-6 w-6 text-white" aria-hidden="true" />
+            </div>
+            <h3 className="mb-2 text-lg font-bold text-white">Availability</h3>
+            <p className="mb-3 text-sm leading-relaxed text-slate-400">Open to accounting, audit, analytics, and accounting-systems roles.</p>
+            <p className="flex items-center gap-2 text-sm font-semibold text-indigo-200">
+              <MapPin className="h-4 w-4" aria-hidden="true" /> Monroe, Louisiana
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 text-center">
+          <a href={emailHref} className="inline-flex h-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-8 text-lg font-bold text-white shadow-xl shadow-indigo-500/20 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300">
+            Start a conversation
+            <ArrowUpRight className="ml-2 h-5 w-5" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

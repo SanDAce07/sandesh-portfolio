@@ -6,11 +6,10 @@ export function AboutSection() {
   const rightRef = useScrollAnimation();
   const skillsRef = useScrollAnimation();
 
-  const skills = [
-    "QuickBooks", "Microsoft Excel", "SQL", "Python", 
-    "Microsoft Office", "GAAP Principles", "Auditing", 
-    "Financial Analysis", "Account Reconciliation", 
-    "Pivot Tables", "VLOOKUP", "Financial Reporting"
+  const skillGroups = [
+    { label: "Accounting", skills: ["Accounts Receivable", "Reconciliations", "Financial Reporting", "GAAP"] },
+    { label: "Audit", skills: ["Workpapers", "Confirmations", "Substantive Testing", "Internal Controls"] },
+    { label: "Technology", skills: ["Excel", "SQL", "Python", "QuickBooks"] },
   ];
 
   return (
@@ -28,17 +27,17 @@ export function AboutSection() {
             <div className="space-y-6">
               <h2 className="text-4xl font-bold text-white tracking-tight">About Me</h2>
               <p className="text-slate-300 text-lg leading-relaxed max-w-xl">
-                Computer Information Systems and Accounting double major at the University of Louisiana Monroe, on the CPA track. Passionate about bridging the gap between financial strategy and technology — from SQL databases to QuickBooks, from GAAP principles to Python scripts. Graduating December 2026.
+                I am an Accounting and Computer Information Systems double major at the University of Louisiana Monroe, graduating in December 2026 with 150 credit hours. My work sits where accounting discipline meets practical technology: reconciliations, audit evidence, Excel models, SQL analysis, and clear documentation.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" ref={rightRef as React.RefObject<HTMLDivElement>}>
             {[
-              { title: "Dual Degree", value: "Double B.B.A." },
+              { title: "Degree Path", value: "Double B.B.A." },
               { title: "Accounting Focus", value: "CPA-Track" },
               { title: "Expected Graduation", value: "Dec 2026" },
-              { title: "University of Louisiana Monroe", value: "Monroe, LA" }
+              { title: "Credit Hours at Graduation", value: "150" }
             ].map((stat, i) => (
               <div 
                 key={i} 
@@ -57,16 +56,19 @@ export function AboutSection() {
         </div>
 
         <div className="mt-24 pt-16 border-t border-white/5" ref={skillsRef as React.RefObject<HTMLDivElement>}>
-          <h3 className="text-2xl font-bold text-white mb-8 tracking-tight">Technical Skills</h3>
-          <div className="flex flex-wrap gap-3">
-            {skills.map((skill, index) => (
-              <span 
-                key={skill}
-                className="glassmorphism px-5 py-2.5 rounded-full text-sm font-medium text-slate-200 hover:text-white border border-white/10 hover:border-[#6366f1] transition-all duration-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:-translate-y-1"
-                style={{ transitionDelay: `${index * 50}ms` }}
-              >
-                {skill}
-              </span>
+          <h3 className="mb-8 text-2xl font-bold tracking-tight text-white">Capabilities</h3>
+          <div className="grid gap-6 md:grid-cols-3">
+            {skillGroups.map((group) => (
+              <div key={group.label} className="glassmorphism rounded-2xl border-white/10 p-6">
+                <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-indigo-300">{group.label}</p>
+                <div className="flex flex-wrap gap-2">
+                  {group.skills.map((skill) => (
+                    <span key={skill} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-200">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
