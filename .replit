@@ -26,3 +26,6 @@ channel = "stable-25_05"
 
 [userenv.shared]
 RESUME_ADMIN_PASSWORD = "PD28Ju3xanBGH67E"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-feb1ae17-95d3-449e-8dc2-a1993a16ccb5"
