@@ -1,5 +1,7 @@
 # Sandesh Lama Tamang — Portfolio
 
+[![Portfolio CI](https://github.com/SanDAce07/sandesh-portfolio/actions/workflows/portfolio-ci.yml/badge.svg)](https://github.com/SanDAce07/sandesh-portfolio/actions/workflows/portfolio-ci.yml)
+
 A professional portfolio focused on accounting, audit, data, and accounting information systems. The site presents selected projects with documented controls, measurable evidence, and links to supporting GitHub work.
 
 ## Highlights
