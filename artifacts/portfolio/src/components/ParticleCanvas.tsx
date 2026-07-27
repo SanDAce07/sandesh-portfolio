@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -8,10 +8,10 @@ export function ParticleCanvas() {
     if (!canvas) return;
     const canvasElement: HTMLCanvasElement = canvas;
 
-    const ctx = canvasElement.getContext('2d');
+    const ctx = canvasElement.getContext("2d");
     if (!ctx) return;
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let particles: Particle[] = [];
     let animationFrameId: number;
@@ -20,8 +20,8 @@ export function ParticleCanvas() {
       canvasElement.width = window.innerWidth;
       canvasElement.height = window.innerHeight;
     };
-    
-    window.addEventListener('resize', resize);
+
+    window.addEventListener("resize", resize);
     resize();
 
     class Particle {
@@ -51,14 +51,14 @@ export function ParticleCanvas() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fillStyle = "rgba(110, 231, 183, 0.35)";
         ctx.fill();
       }
     }
 
     const init = () => {
       particles = [];
-      for (let i = 0; i < 80; i++) {
+      for (let i = 0; i < 64; i++) {
         particles.push(new Particle());
       }
     };
@@ -77,7 +77,7 @@ export function ParticleCanvas() {
 
           if (distance < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 120)})`;
+            ctx.strokeStyle = `rgba(245, 158, 11, ${0.12 * (1 - distance / 120)})`;
             ctx.lineWidth = 1;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -92,14 +92,14 @@ export function ParticleCanvas() {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <canvas 
-      ref={canvasRef} 
+    <canvas
+      ref={canvasRef}
       aria-hidden="true"
       className="absolute inset-0 pointer-events-none w-full h-full"
     />
