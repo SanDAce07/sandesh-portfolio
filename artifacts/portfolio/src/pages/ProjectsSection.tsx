@@ -92,13 +92,13 @@ const projects: Project[] = [
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="glassmorphism group flex h-full flex-col rounded-3xl border-emerald-200/10 p-7 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-emerald-300/50 hover:shadow-[0_24px_80px_rgba(16,185,129,0.14)]">
+    <article className="proof-tile glassmorphism group flex h-full flex-col rounded-lg border-emerald-200/10 p-7 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-cyan-300/50 hover:shadow-[0_24px_80px_rgba(34,211,238,0.14)]">
       <div className="mb-6 flex items-start justify-between gap-4">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-200">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-100">
           {project.category}
         </p>
         <ArrowUpRight
-          className="h-5 w-5 shrink-0 text-stone-500 transition-colors group-hover:text-emerald-200"
+          className="h-5 w-5 shrink-0 text-stone-500 transition-colors group-hover:text-cyan-200"
           aria-hidden="true"
         />
       </div>
@@ -110,7 +110,7 @@ function ProjectCard({ project }: { project: Project }) {
         {project.description}
       </p>
 
-      <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-amber-100">
+      <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-cyan-100">
         <FolderGit2 className="h-4 w-4 text-amber-200" aria-hidden="true" />
         <span className="break-all">{project.repo}</span>
       </div>
@@ -126,7 +126,7 @@ function ProjectCard({ project }: { project: Project }) {
             className="flex gap-3 text-sm leading-relaxed text-stone-300"
           >
             <CheckCircle2
-              className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300"
+              className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300"
               aria-hidden="true"
             />
             <span>{item}</span>
@@ -149,7 +149,7 @@ function ProjectCard({ project }: { project: Project }) {
         href={project.href}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center font-semibold text-white underline-offset-4 hover:text-emerald-200 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+        className="inline-flex items-center font-semibold text-white underline-offset-4 hover:text-cyan-200 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200"
         aria-label={`View ${project.title} on GitHub`}
       >
         View project
@@ -174,14 +174,14 @@ export function ProjectsSection() {
       >
         <div className="mb-14 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-emerald-200">
-              Selected GitHub evidence
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-amber-100">
+              GitHub proof board
             </p>
             <h2
               id="projects-heading"
               className="mb-5 text-4xl font-bold tracking-tight text-white md:text-5xl"
             >
-              Work built to be reviewed and used.
+              Built projects with receipts.
             </h2>
             <p className="text-lg leading-relaxed text-stone-400">
               These projects are pulled from public repos and emphasize
@@ -194,7 +194,7 @@ export function ProjectsSection() {
             href="https://github.com/SanDAce07?tab=repositories"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex h-12 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 font-semibold text-white transition-colors hover:border-emerald-300/50 hover:bg-emerald-300/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+            className="inline-flex h-12 shrink-0 items-center justify-center rounded-full border border-cyan-200/25 bg-cyan-200/5 px-6 font-semibold text-white transition-colors hover:border-cyan-300/50 hover:bg-cyan-300/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200"
           >
             <Github className="mr-2 h-5 w-5" aria-hidden="true" />
             All GitHub repositories

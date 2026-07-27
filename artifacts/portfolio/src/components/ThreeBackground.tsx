@@ -67,7 +67,7 @@ export function ThreeBackground() {
                 left: 0,
                 transformStyle: "preserve-3d",
                 transform: `${face.rotateX ? `rotateX(${face.rotateX})` : `rotateY(${face.rotateY})`} translateZ(${face.translateZ})`,
-                border: "1px solid rgba(110,231,183,0.22)",
+                border: "1px solid rgba(34,211,238,0.22)",
                 boxSizing: "border-box",
                 background: "transparent",
               }}
@@ -87,7 +87,7 @@ export function ThreeBackground() {
               left: "50%",
               marginTop: "-297px",
               marginLeft: "-1px",
-              background: `linear-gradient(to bottom, transparent, rgba(110,231,183,${0.14 + i * 0.02}), rgba(245,158,11,0.18), rgba(20,184,166,${0.13 + i * 0.02}), transparent)`,
+              background: `linear-gradient(to bottom, transparent, rgba(252,211,77,${0.14 + i * 0.02}), rgba(34,211,238,0.18), rgba(16,185,129,${0.13 + i * 0.02}), transparent)`,
               transformOrigin: "center center",
               transform: `rotateZ(${angle}deg) rotateX(${angle * 0.6}deg)`,
             }}
@@ -103,11 +103,12 @@ export function ThreeBackground() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            borderRadius: "22px",
-            border: "1px solid rgba(253,230,138,0.28)",
+            borderRadius: "8px",
+            border: "1px solid rgba(34,211,238,0.32)",
             background:
-              "linear-gradient(135deg, rgba(6,78,59,0.75), rgba(15,23,20,0.92))",
-            boxShadow: "0 0 42px rgba(16,185,129,0.2)",
+              "linear-gradient(135deg, rgba(120,53,15,0.68), rgba(6,78,59,0.78), rgba(8,47,73,0.9))",
+            boxShadow:
+              "0 0 42px rgba(34,211,238,0.18), 0 0 28px rgba(252,211,77,0.12)",
             animation: "corePulse 3s ease-in-out infinite",
             display: "grid",
             placeItems: "center",
@@ -135,8 +136,8 @@ export function ThreeBackground() {
               top: "50%",
               left: "50%",
               transform: `translate(-50%, -50%) rotateX(${58 + i * 16}deg) rotateZ(${i * 28}deg)`,
-              borderRadius: "18px",
-              border: `1px solid rgba(${i % 2 === 0 ? "110,231,183" : "245,158,11"},${0.25 - i * 0.04})`,
+              borderRadius: "8px",
+              border: `1px solid rgba(${i % 2 === 0 ? "34,211,238" : "252,211,77"},${0.25 - i * 0.04})`,
               animation: `ringPulse ${2 + i * 0.5}s ease-in-out infinite alternate`,
             }}
           />

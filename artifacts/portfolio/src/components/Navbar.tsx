@@ -26,7 +26,7 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "glassmorphism py-4 border-b border-emerald-200/10"
+          ? "glassmorphism py-4 border-b border-cyan-200/10"
           : "bg-transparent py-6"
       }`}
     >
@@ -34,7 +34,7 @@ export function Navbar() {
         <button
           type="button"
           aria-label="Back to the top"
-          className="cursor-pointer rounded-md bg-gradient-to-r from-emerald-200 to-amber-200 bg-clip-text text-2xl font-bold tracking-tighter text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+          className="cursor-pointer rounded-md bg-gradient-to-r from-amber-200 via-emerald-200 to-cyan-200 bg-clip-text text-2xl font-bold tracking-tighter text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           SLT
@@ -71,7 +71,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <Button
             onClick={() => scrollTo("contact")}
-            className="hidden rounded-full border-0 bg-gradient-to-r from-emerald-500 to-teal-500 px-6 text-white transition-opacity hover:opacity-90 sm:inline-flex"
+            className="hidden rounded-full border-0 bg-gradient-to-r from-amber-400 via-emerald-500 to-cyan-500 px-6 font-bold text-slate-950 transition-opacity hover:opacity-90 sm:inline-flex"
           >
             Let&apos;s connect
           </Button>

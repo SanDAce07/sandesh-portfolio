@@ -42,18 +42,19 @@ export function FocusSection() {
         ref={sectionRef as React.RefObject<HTMLDivElement>}
       >
         <div className="mb-12 max-w-3xl">
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-emerald-200">
-            How I contribute
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-amber-100">
+            Portfolio character
           </p>
           <h2
             id="focus-heading"
             className="mb-5 text-4xl font-bold tracking-tight text-white md:text-5xl"
           >
-            Strong accounting fundamentals, strengthened by systems thinking.
+            Energetic, practical, and built around visible proof.
           </h2>
           <p className="text-lg leading-relaxed text-stone-400">
-            I build work that another person can understand, review, and use—not
-            just a polished final number.
+            I build work that another person can understand, review, and use:
+            the calculations, the assumptions, the checkpoints, and the
+            conclusion all stay connected.
           </p>
         </div>
 
@@ -61,10 +62,10 @@ export function FocusSection() {
           {focusAreas.map(({ icon: Icon, title, description }) => (
             <article
               key={title}
-              className="glassmorphism rounded-3xl border-emerald-200/10 p-8 transition-colors hover:border-emerald-300/40"
+              className="focus-card glassmorphism rounded-lg border-emerald-200/10 p-8 transition-colors hover:border-cyan-300/40"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-amber-400 shadow-lg shadow-emerald-950/30">
-                <Icon className="h-6 w-6 text-white" aria-hidden="true" />
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-amber-300 via-emerald-400 to-cyan-400 shadow-lg shadow-emerald-950/30">
+                <Icon className="h-6 w-6 text-slate-950" aria-hidden="true" />
               </div>
               <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
               <p className="leading-relaxed text-stone-400">{description}</p>

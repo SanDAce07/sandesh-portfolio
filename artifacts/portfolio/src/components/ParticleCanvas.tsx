@@ -51,7 +51,7 @@ export function ParticleCanvas() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(110, 231, 183, 0.35)";
+        ctx.fillStyle = "rgba(252, 211, 77, 0.34)";
         ctx.fill();
       }
     }
@@ -77,7 +77,7 @@ export function ParticleCanvas() {
 
           if (distance < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(245, 158, 11, ${0.12 * (1 - distance / 120)})`;
+            ctx.strokeStyle = `rgba(34, 211, 238, ${0.14 * (1 - distance / 120)})`;
             ctx.lineWidth = 1;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
