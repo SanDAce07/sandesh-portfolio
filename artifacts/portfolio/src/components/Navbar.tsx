@@ -1,121 +1,90 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Link, useLocation } from "wouter";
+
+const navItems = [
+  { href: "/", label: "Overview" },
+  { href: "/experience", label: "Experience" },
+  { href: "/work", label: "Selected work" },
+  { href: "/about", label: "About" },
+];
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [location] = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
-    }
-  };
+  useEffect(() => setIsOpen(false), [location]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "glassmorphism py-4 border-b border-cyan-200/10"
-          : "bg-transparent py-6"
-      }`}
-    >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <button
-          type="button"
-          aria-label="Back to the top"
-          className="cursor-pointer rounded-md bg-gradient-to-r from-amber-200 via-emerald-200 to-cyan-200 bg-clip-text text-2xl font-bold tracking-tighter text-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    <header className="site-header">
+      <div className="page-container header-inner">
+        <Link
+          href="/"
+          className="wordmark"
+          aria-label="Sandesh Lama Tamang home"
         >
-          SLT
-        </button>
-        <nav
-          className="hidden md:flex items-center gap-8"
-          aria-label="Primary navigation"
-        >
-          <button
-            onClick={() => scrollTo("about")}
-            className="text-sm font-medium text-stone-300 hover:text-white transition-colors"
-          >
-            About
-          </button>
-          <button
-            onClick={() => scrollTo("focus")}
-            className="text-sm font-medium text-stone-300 hover:text-white transition-colors"
-          >
-            Focus
-          </button>
-          <button
-            onClick={() => scrollTo("projects")}
-            className="text-sm font-medium text-stone-300 hover:text-white transition-colors"
-          >
-            Projects
-          </button>
-          <button
-            onClick={() => scrollTo("contact")}
-            className="text-sm font-medium text-stone-300 hover:text-white transition-colors"
-          >
-            Contact
-          </button>
+          SLT<span>.</span>
+        </Link>
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={
+                location === item.href ? "nav-link is-active" : "nav-link"
+              }
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
-        <div className="flex items-center gap-3">
-          <Button
-            onClick={() => scrollTo("contact")}
-            className="hidden rounded-full border-0 bg-gradient-to-r from-amber-400 via-emerald-500 to-cyan-500 px-6 font-bold text-slate-950 transition-opacity hover:opacity-90 sm:inline-flex"
-          >
-            Let&apos;s connect
-          </Button>
-          <button
-            type="button"
-            aria-label={
-              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
-            }
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-navigation"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white md:hidden"
-          >
-            {isMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </button>
-        </div>
+
+        <a
+          className="talk-link desktop-talk"
+          href="mailto:lamatamangs@warhawks.ulm.edu?subject=Portfolio%20inquiry"
+        >
+          Let&apos;s talk <ArrowUpRight aria-hidden="true" size={16} />
+        </a>
+
+        <button
+          className="mobile-menu-button"
+          type="button"
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsOpen((value) => !value)}
+        >
+          {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
       </div>
 
-      {isMenuOpen && (
+      {isOpen && (
         <nav
           id="mobile-navigation"
+          className="mobile-nav"
           aria-label="Mobile navigation"
-          className="container mx-auto px-6 pb-3 md:hidden"
         >
-          <div className="glassmorphism mt-4 grid gap-2 rounded-2xl border-white/10 p-3 shadow-2xl">
-            {[
-              ["About", "about"],
-              ["Focus", "focus"],
-              ["Projects", "projects"],
-              ["Contact", "contact"],
-            ].map(([label, id]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => scrollTo(id)}
-                className="rounded-xl px-4 py-3 text-left font-semibold text-stone-200 hover:bg-white/5 hover:text-white"
+          <div className="page-container mobile-nav-inner">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  location === item.href
+                    ? "mobile-nav-link is-active"
+                    : "mobile-nav-link"
+                }
               >
-                {label}
-              </button>
+                {item.label}
+              </Link>
             ))}
+            <a
+              className="mobile-nav-link"
+              href="mailto:lamatamangs@warhawks.ulm.edu?subject=Portfolio%20inquiry"
+            >
+              Let&apos;s talk
+            </a>
           </div>
         </nav>
       )}
