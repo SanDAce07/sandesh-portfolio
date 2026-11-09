@@ -6,8 +6,10 @@ A professional portfolio focused on accounting, audit, data, and accounting info
 
 ## Highlights
 
-- recruiter-focused accounting and CIS positioning
-- curated accounting, audit, and GRC project case studies
+- recruiter-focused accounting, audit, analytics, and CIS positioning
+- multi-page Overview, Experience, Selected Work, and About structure
+- project case studies centered on work performed, tools, and transferable methods
+- Microsoft Power BI governmental audit dashboard featured through data organization, classification, source traceability, and visual presentation
 - accessible desktop and mobile navigation
 - reduced-motion support and keyboard-friendly interactions
 - production SEO, structured data, favicon, and social-preview artwork
@@ -50,7 +52,7 @@ No required environment variables are needed for the portfolio deployment.
 
 ## Repository Map
 
-- `artifacts/portfolio` — portfolio web application
+- `artifacts/portfolio` — multi-page portfolio web application
 - `artifacts/api-server` — optional API workspace scaffold
 - `lib` — shared generated API and database packages
 - `vercel.json` — production build, output, routing, caching, and security configuration
